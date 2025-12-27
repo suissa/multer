@@ -1,13 +1,13 @@
 # Multer [![NPM Version][npm-version-image]][npm-url] [![NPM Downloads][npm-downloads-image]][npm-url] [![Build Status][ci-image]][ci-url] [![Test Coverage][test-image]][test-url] [![OpenSSF Scorecard Badge][ossf-scorecard-badge]][ossf-scorecard-visualizer]
 
-Multer is a node.js middleware for handling `multipart/form-data`, which is primarily used for uploading files. It is written
-on top of [busboy](https://github.com/mscdex/busboy) for maximum efficiency.
+Multer minangka middleware node.js kanggo nangani `multipart/form-data`, sing utamané digunakake kanggo ngunggah file. Iku ditulis
+ing ndhuwur [busboy] (https://github.com/mscdex/busboy) kanggo efficiency maksimum.
 
-**NOTE**: Multer will not process any form which is not multipart (`multipart/form-data`).
+**CATETAN**: Multer ora bakal ngolah wujud apa wae sing ora multipart (`multipart/form-data`).
 
-## Translations
+## Terjemahan
 
-This README is also available in other languages:
+README iki uga kasedhiya ing basa liya:
 
 |                                                                                |                 |
 | ------------------------------------------------------------------------------ | --------------- |
@@ -41,19 +41,19 @@ This README is also available in other languages:
 | [Polski](https://github.com/expressjs/multer/blob/main/doc/README-pl.md)       | Polish          |
 | [Українська](https://github.com/expressjs/multer/blob/main/doc/README-uk.md)   | Ukrainian       |
 
-## Installation
+## Instalasi
 
 ```sh
 $ npm install multer
 ```
 
-## Usage
+## Panganggone
 
-Multer adds a `body` object and a `file` or `files` object to the `request` object. The `body` object contains the values of the text fields of the form, the `file` or `files` object contains the files uploaded via the form.
+Multer nambahake obyek `body` lan obyek `file` utawa `file` menyang obyek `request`. Obyek `body` ngemot nilai kolom teks formulir, obyek `file` utawa `file` ngemot file sing diunggah liwat formulir.
 
-Basic usage example:
+Conto panggunaan dhasar:
 
-Don't forget the `enctype="multipart/form-data"` in your form.
+Aja lali `enctype="multipart/form-data"` ing formulir sampeyan.
 
 ```html
 <form action="/profile" method="post" enctype="multipart/form-data">
@@ -90,7 +90,7 @@ app.post('/cool-profile', uploadMiddleware, function (req, res, next) {
 })
 ```
 
-In case you need to handle a text-only multipart form, you should use the `.none()` method:
+Yen sampeyan kudu nangani formulir multipart mung teks, sampeyan kudu nggunakake metode `.none()`:
 
 ```javascript
 const express = require('express')
@@ -103,7 +103,7 @@ app.post('/profile', upload.none(), function (req, res, next) {
 })
 ```
 
-Here's an example on how multer is used in a HTML form. Take special note of the `enctype="multipart/form-data"` and `name="uploaded_file"` fields:
+Punika conto carane multer digunakake ing wangun HTML. Elinga lapangan `enctype="multipart/form-data"` lan `name="uploaded_file"`:
 
 ```html
 <form action="/stats" enctype="multipart/form-data" method="post">
@@ -115,7 +115,7 @@ Here's an example on how multer is used in a HTML form. Take special note of the
 </form>
 ```
 
-Then in your javascript file you would add these lines to access both the file and the body. It is important that you use the `name` field value from the form in your upload function. This tells multer which field on the request it should look for the files in. If these fields aren't the same in the HTML form and on your server, your upload will fail:
+Banjur ing file javascript sampeyan bakal nambah garis kasebut kanggo ngakses file lan awak. Penting sampeyan nggunakake nilai kolom `jeneng` saka formulir ing fungsi unggahan sampeyan. Iki ngandhani multer kolom ing panyuwunan sing kudu digoleki file kasebut. Yen kolom kasebut ora padha ing formulir HTML lan ing server sampeyan, unggahan sampeyan bakal gagal:
 
 ```javascript
 const multer  = require('multer')
@@ -131,69 +131,69 @@ app.post('/stats', upload.single('uploaded_file'), function (req, res) {
 
 ## API
 
-### File information
+### Informasi file
 
-Each file contains the following information:
+Saben file ngemot informasi ing ngisor iki:
 
-Key | Description | Note
+Kunci | katrangan | Cathetan
 --- | --- | ---
-`fieldname` | Field name specified in the form |
-`originalname` | Name of the file on the user's computer |
-`encoding` | Encoding type of the file |
-`mimetype` | Mime type of the file |
-`size` | Size of the file in bytes |
-`destination` | The folder to which the file has been saved | `DiskStorage`
-`filename` | The name of the file within the `destination` | `DiskStorage`
-`path` | The full path to the uploaded file | `DiskStorage`
-`buffer` | A `Buffer` of the entire file | `MemoryStorage`
+`jeneng lapangan` | Jeneng kolom kasebut ing wangun |
+`jeneng asli` | Jeneng berkas ing komputer pangguna |
+`enkoding` | Jinis enkoding berkas |
+`mimetype` | Jinis mime berkas |
+`ukuran` | Ukuran berkas ing bita |
+`tujuan` | Folder sing wis disimpen file | `DiskStorage`
+`jeneng berkas` | Jeneng berkas ing `tujuan` | `DiskStorage`
+`path` | Path lengkap menyang berkas sing diunggahaké | `DiskStorage`
+`buffer` | A `Buffer` saka kabèh berkas | `MemoriStorage`
 
-### `multer(opts)`
+### `multer(milih)`
 
-Multer accepts an options object, the most basic of which is the `dest`
-property, which tells Multer where to upload the files. In case you omit the
-options object, the files will be kept in memory and never written to disk.
+Multer nampa obyek opsi, sing paling dhasar yaiku `dest`
+property, kang ngandhani Multer ngendi kanggo ngunggah file. Yen sampeyan ngilangi
+obyek opsi, file bakal disimpen ing memori lan ora bakal ditulis ing disk.
 
-By default, Multer will rename the files so as to avoid naming conflicts. The
-renaming function can be customized according to your needs.
+Kanthi gawan, Multer bakal ngganti jeneng file supaya ora konflik jeneng. Ing
+fungsi ngganti jeneng bisa selaras miturut kabutuhan.
 
-The following are the options that can be passed to Multer.
+Ing ngisor iki minangka pilihan sing bisa dikirim menyang Multer.
 
-Key | Description
+Kunci | Katrangan
 --- | ---
-`dest` or `storage` | Where to store the files
-`fileFilter` | Function to control which files are accepted
-`limits` | Limits of the uploaded data
-`preservePath` | Keep the full path of files instead of just the base name
+`dest` utawa `panyimpenan` | Where kanggo nyimpen file
+`Filter' | Fungsi kanggo ngontrol file sing ditampa
+`wates` | Watesan data sing diunggah
+`preservePath` | Tansah path lengkap file tinimbang mung jeneng dhasar
 
-In an average web app, only `dest` might be required, and configured as shown in
-the following example.
+Ing aplikasi web rata-rata, mung `tujuh` sing dibutuhake, lan dikonfigurasi kaya sing dituduhake ing
+tuladha ing ngisor iki.
 
 ```javascript
 const upload = multer({ dest: 'uploads/' })
 ```
 
-If you want more control over your uploads, you'll want to use the `storage`
-option instead of `dest`. Multer ships with storage engines `DiskStorage`
-and `MemoryStorage`; More engines are available from third parties.
+Yen sampeyan pengin luwih ngontrol unggahan sampeyan, sampeyan pengin nggunakake `panyimpenan`
+pilihan tinimbang `dest`. Kapal Multer nganggo mesin panyimpenan `DiskStorage`
+lan `MemoryStorage`; Mesin liyane kasedhiya saka pihak katelu.
 
 #### `.single(fieldname)`
 
-Accept a single file with the name `fieldname`. The single file will be stored
-in `req.file`.
+Nampa file siji kanthi jeneng `fieldname`. File siji bakal disimpen
+ing `req.file`.
 
 #### `.array(fieldname[, maxCount])`
 
-Accept an array of files, all with the name `fieldname`. Optionally error out if
-more than `maxCount` files are uploaded. The array of files will be stored in
+Nampa larik file, kabeh nganggo jeneng `fieldname`. Optionally kesalahan metu yen
+luwih saka file `maxCount` sing diunggah. Array file bakal disimpen ing
 `req.files`.
 
 #### `.fields(fields)`
 
-Accept a mix of files, specified by `fields`. An object with arrays of files
-will be stored in `req.files`.
+Nampa campuran file, sing ditemtokake dening `fields`. Objek kanthi susunan file
+bakal disimpen ing `req.files`.
 
-`fields` should be an array of objects with `name` and optionally a `maxCount`.
-Example:
+`fields` kudu dadi array obyek kanthi `jeneng` lan opsional `maxCount`.
+Tuladha:
 
 ```javascript
 [
@@ -202,26 +202,26 @@ Example:
 ]
 ```
 
-#### `.none()`
+#### `.ora ana ()`
 
-Accept only text fields. If any file upload is made, error with code
-"LIMIT\_UNEXPECTED\_FILE" will be issued.
+Nampa mung kolom teks. Yen ana upload file, kesalahan karo kode
+"LIMIT\_UNEXPECTED\_FILE" bakal diterbitake.
 
 #### `.any()`
 
-Accepts all files that comes over the wire. An array of files will be stored in
+Nampa kabeh file sing teka liwat kabel. Array file bakal disimpen ing
 `req.files`.
 
-**WARNING:** Make sure that you always handle the files that a user uploads.
-Never add multer as a global middleware since a malicious user could upload
-files to a route that you didn't anticipate. Only use this function on routes
-where you are handling the uploaded files.
+**PÈNGET:** Priksa manawa sampeyan tansah nangani file sing diunggahaké pangguna.
+Aja nambah multer minangka middleware global amarga pangguna jahat bisa ngunggah
+file menyang rute sing ora diantisipasi. Mung nggunakake fungsi iki ing rute
+ngendi sampeyan nangani file sing diunggah.
 
-### `storage`
+### `panyimpenan`
 
 #### `DiskStorage`
 
-The disk storage engine gives you full control on storing files to disk.
+Mesin panyimpenan disk menehi kontrol lengkap kanggo nyimpen file menyang disk.
 
 ```javascript
 const storage = multer.diskStorage({
@@ -237,74 +237,74 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 ```
 
-There are two options available, `destination` and `filename`. They are both
-functions that determine where the file should be stored.
+Ana rong pilihan sing kasedhiya, `tujuan` lan `jeneng file`. Loro-lorone
+fungsi sing nemtokake ngendi file kudu disimpen.
 
-`destination` is used to determine within which folder the uploaded files should
-be stored. This can also be given as a `string` (e.g. `'/tmp/uploads'`). If no
-`destination` is given, the operating system's default directory for temporary
-files is used.
+`tujuan` digunakake kanggo nemtokake ing folder endi file sing diunggah
+disimpen. Iki uga bisa diwenehi minangka `string` (contone `'/tmp/uploads'`). Yen ora
+`tujuan` diwenehi, direktori standar sistem operasi kanggo sementara
+file digunakake.
 
-**Note:** You are responsible for creating the directory when providing
-`destination` as a function. When passing a string, multer will make sure that
-the directory is created for you.
+** Cathetan: ** Sampeyan tanggung jawab kanggo nggawe direktori nalika nyedhiyakake
+`tujuan` minangka fungsi. Nalika ngliwati senar, multer bakal nggawe manawa
+direktori digawe kanggo sampeyan.
 
-`filename` is used to determine what the file should be named inside the folder.
-If no `filename` is given, each file will be given a random name that doesn't
-include any file extension.
+`filename` digunakake kanggo nemtokake file apa sing kudu dijenengi ing folder kasebut.
+Yen ora ana `filename` diwenehi, saben file bakal diwenehi jeneng acak sing ora
+kalebu ekstensi file apa wae.
 
-**Note:** Multer will not append any file extension for you, your function
-should return a filename complete with a file extension.
+** Cathetan: ** Multer ora bakal nambah ekstensi file kanggo sampeyan, fungsi sampeyan
+ngirim bali jeneng berkas lengkap karo ekstensi file.
 
-Each function gets passed both the request (`req`) and some information about
-the file (`file`) to aid with the decision.
+Saben fungsi bakal ngliwati panjalukan (`req`) lan sawetara informasi babagan
+file (`file`) kanggo bantuan karo kaputusan.
 
-Note that `req.body` might not have been fully populated yet. It depends on the
-order that the client transmits fields and files to the server.
+Elinga yen `req.body` bisa uga durung diisi kanthi lengkap. Iku gumantung ing
+supaya klien ngirim lapangan lan file menyang server.
 
-For understanding the calling convention used in the callback (needing to pass
-null as the first param), refer to
-[Node.js error handling](https://web.archive.org/web/20220417042018/https://www.joyent.com/node-js/production/design/errors)
+Kanggo mangerteni konvensi panggilan sing digunakake ing callback (perlu lulus
+null minangka param pisanan), deleng
+[Penanganan kesalahan Node.js](https://web.archive.org/web/20220417042018/https://www.joyent.com/node-js/production/design/errors)
 
 #### `MemoryStorage`
 
-The memory storage engine stores the files in memory as `Buffer` objects. It
-doesn't have any options.
+Mesin panyimpenan memori nyimpen file ing memori minangka obyek `Buffer`. Iku
+ora duwe pilihan.
 
 ```javascript
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
 ```
 
-When using memory storage, the file info will contain a field called
-`buffer` that contains the entire file.
+Nalika nggunakake panyimpenan memori, info file bakal ngemot kolom disebut
+`buffer` sing ngemot kabeh file.
 
-**WARNING**: Uploading very large files, or relatively small files in large
-numbers very quickly, can cause your application to run out of memory when
-memory storage is used.
+**PÈNGET**: Ngunggah file sing gedhé banget, utawa file sing ukurané cilik
+nomer cepet banget, bisa nimbulaké aplikasi kanggo mbukak metu saka memori nalika
+panyimpenan memori digunakake.
 
-### `limits`
+### `wates`
 
-An object specifying the size limits of the following optional properties. Multer passes this object into busboy directly, and the details of the properties can be found on [busboy's page](https://github.com/mscdex/busboy#busboy-methods).
+Obyek sing nemtokake watesan ukuran properti opsional ing ngisor iki. Multer ngliwati obyek iki menyang busboy langsung, lan rincian properti bisa ditemokake ing [kaca busboy] (https://github.com/mscdex/busboy#busboy-methods).
 
-The following integer values are available:
+Nilai integer ing ngisor iki kasedhiya:
 
-Key | Description | Default
+Kunci | katrangan | Default
 --- | --- | ---
-`fieldNameSize` | Max field name size | 100 bytes
-`fieldSize` | Max field value size (in bytes) | 1MB
-`fields` | Max number of non-file fields | Infinity
-`fileSize` | For multipart forms, the max file size (in bytes) | Infinity
-`files` | For multipart forms, the max number of file fields | Infinity
-`parts` | For multipart forms, the max number of parts (fields + files) | Infinity
-`headerPairs` | For multipart forms, the max number of header key=>value pairs to parse | 2000
+`fieldNameSize` | Ukuran jeneng lapangan maksimal | 100 bita
+`ukuran lapangan` | Ukuran nilai lapangan maksimal (ing bita) | 1 MB
+`sawah` | Jumlah maksimum kolom non-berkas | tanpa wates
+`Ukuran berkas` | Kanggo formulir multipart, ukuran file maksimal (ing bita) | tanpa wates
+`berkas` | Kanggo formulir multipart, jumlah maksimum kolom berkas | tanpa wates
+`bagean` | Kanggo wangun multipart, jumlah max bagean (lapangan + file) | tanpa wates
+`headerPairs` | Kanggo wangun multipart, jumlah maksimum tombol header => pasangan nilai kanggo parse | 2000
 
-Specifying the limits can help protect your site against denial of service (DoS) attacks.
+Nemtokake watesan bisa mbantu nglindhungi situs sampeyan saka serangan penolakan layanan (DoS).
 
-### `fileFilter`
+### `Filter'
 
-Set this to a function to control which files should be uploaded and which
-should be skipped. The function should look like this:
+Setel iki menyang fungsi kanggo ngontrol file sing kudu diunggah lan endi
+kudu dilewati. Fungsi kasebut kudu katon kaya iki:
 
 ```javascript
 function fileFilter (req, file, cb) {
@@ -324,13 +324,13 @@ function fileFilter (req, file, cb) {
 }
 ```
 
-## Error handling
+## Penanganan kesalahan
 
-When encountering an error, Multer will delegate the error to Express. You can
-display a nice error page using [the standard express way](http://expressjs.com/guide/error-handling.html).
+Nalika nemoni kesalahan, Multer bakal utusan kesalahan kasebut menyang Express. Sampeyan bisa
+nampilake kaca kesalahan sing apik nggunakake [cara ekspres standar] (http://expressjs.com/guide/error-handling.html).
 
-If you want to catch errors specifically from Multer, you can call the
-middleware function by yourself. Also, if you want to catch only [the Multer errors](https://github.com/expressjs/multer/blob/main/lib/multer-error.js), you can use the `MulterError` class that is attached to the `multer` object itself (e.g. `err instanceof multer.MulterError`).
+Yen sampeyan pengin nyekel kasalahan khusus saka Multer, sampeyan bisa nelpon ing
+fungsi middleware dhewe. Uga, yen sampeyan pengin nyekel mung [kesalahan Multer] (https://github.com/expressjs/multer/blob/main/lib/multer-error.js), sampeyan bisa nggunakake kelas `MulterError` sing ditempelake ing obyek `multer` dhewe (contone `err instanceof multer.MulterError`).
 
 ```javascript
 const multer = require('multer')
@@ -349,13 +349,13 @@ app.post('/profile', function (req, res) {
 })
 ```
 
-## Custom storage engine
+## Mesin panyimpenan khusus
 
-For information on how to build your own storage engine, see [Multer Storage Engine](https://github.com/expressjs/multer/blob/main/StorageEngine.md).
+Kanggo informasi babagan carane nggawe mesin panyimpenan dhewe, deleng [Multer Storage Engine](https://github.com/expressjs/multer/blob/main/StorageEngine.md).
 
-## License
+## Lisensi
 
-[MIT](LICENSE)
+[MY](LISENSI)
 
 [ci-image]: https://github.com/expressjs/multer/actions/workflows/ci.yml/badge.svg
 [ci-url]: https://github.com/expressjs/multer/actions/workflows/ci.yml
